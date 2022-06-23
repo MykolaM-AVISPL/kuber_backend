@@ -1,0 +1,37 @@
+symphony:
+  application:
+    name: backend1
+    application-group: backend
+    actuator:
+      enable: true
+  email-logger:
+    enable: true
+    from: ${MS_GRAPH_TO_KAFKA_EMAIL_FROM:errors@vnocsymphony.com}
+    to: ${MS_GRAPH_TO_KAFKA_EMAIL_TO}
+    host: ${MS_GRAPH_TO_KAFKA_EMAIL_HOST:172.31.11.188}
+    port: ${MS_GRAPH_TO_KAFKA_EMAIL_PORT:25}
+    username: ${MS_GRAPH_TO_KAFKA_EMAIL_USERNAME:}
+    password: ${MS_GRAPH_TO_KAFKA_EMAIL_PASSWORD:}
+    java-mail-properties:
+      mail.smtp.auth: ${MS_GRAPH_TO_KAFKA_EMAIL_AUTH:false}
+      mail.smtp.starttls.enable: ${MS_GRAPH_TO_KAFKA_EMAIL_STARTTLS_ENABLE:false}
+      mail.smtp.socketFactory.class: ${MS_GRAPH_TO_KAFKA_EMAIL_SOCKETFACTORY:}
+      mail.smtp.socketFactory.fallback: false
+      mail.smtp.sendpartial: true
+      mail.smtp.quitwait: false
+      mail.transport.protocol: smtp
+      mail.debug: ${MS_GRAPH_TO_KAFKA_EMAIL_DEBUG:true}
+#    Spring Actuator settings
+management:
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+      base-path: /actuator
+server:
+  port: 8070

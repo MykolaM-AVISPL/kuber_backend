@@ -38,6 +38,16 @@
       <artifactId>symphony-spring-boot-starter</artifactId>
       <version>${symphony-spring-boot-starter.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
