@@ -35,3 +35,8 @@ management:
       base-path: /actuator
 server:
   port: 8070
+spring:
+  security:
+    user:
+      name: ${MS_GRAPH_TO_KAFKA_SECURITY_USER_NAME:user}
+      password: ${MS_GRAPH_TO_KAFKA_SECURITY_PASSWORD:password}
