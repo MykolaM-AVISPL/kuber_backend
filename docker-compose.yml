@@ -3,9 +3,9 @@ version: '0.2'
 services:
   backend:
     hostname: backend
-    image: docker.io/matsishin/kuber-backend:0.2
+    image: docker.io/matsishin/kuber-backend:0.2.2
     container_name: backend
-#    env_file:
-#      - config/ka-to-sy-adapter-variables.env
+    env_file:
+      - config/backend-variables.env
     ports:
       - "8001:8080"
