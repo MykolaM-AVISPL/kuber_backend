@@ -33,8 +33,6 @@ management:
       exposure:
         include: "health,info"
       base-path: /actuator
-server:
-  port: 8070
 spring:
   security:
     user:

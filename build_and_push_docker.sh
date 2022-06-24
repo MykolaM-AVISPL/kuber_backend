@@ -1,3 +1,6 @@
+#!/bin/sh
+version="0.2"
 mvn clean install
-docker build -t matsishin/kuber-backend:0.1 .
-docker image push matsishin/kuber-backend:0.1
+docker build -t "matsishin/kuber-backend:$version" .
+docker login
+docker image push "matsishin/kuber-backend:$version"
