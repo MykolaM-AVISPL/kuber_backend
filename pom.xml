@@ -19,7 +19,7 @@
     <builder.version>${project.version}</builder.version>
     <write-properties.version>1.0.1</write-properties.version>
     <maven-properties.plugin.version>1.1.0</maven-properties.plugin.version>
-    <symphony-spring-boot-starter.version>1.1.0.2206021000</symphony-spring-boot-starter.version>
+    <symphony-spring-boot-starter.version>1.2.0-SNAPSHOT</symphony-spring-boot-starter.version>
   </properties>
   <dependencies>
     <dependency>
@@ -38,6 +38,7 @@
       <artifactId>symphony-spring-boot-starter</artifactId>
       <version>${symphony-spring-boot-starter.version}</version>
     </dependency>
+
   </dependencies>
 
   <build>

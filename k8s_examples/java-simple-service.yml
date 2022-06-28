@@ -1,0 +1,72 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment-autoscaling
+  labels:
+    app  : java-backend
+    env  : prod
+    owner: MykolaMatsishin
+spec:
+  selector:
+    matchLabels:
+      project: abc
+  template:
+    metadata:
+      labels:
+        project: abc
+    spec:
+      containers:
+        - name : java-autoscaling
+          image: docker.io/matsishin/kuber-backend:0.2.1
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-autoscaling
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2beta1v1
+    kind: Deployment
+    name: my-web-deployment-autoscaling
+  minReplicas: 2
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-autoscaling-pod-service
+  labels:
+    app: java-backend
+    env: prod
+spec:
+  selector:
+    project: abc #labels to select
+  ports:
+  - name: app-listener
+    protocol: TCP
+    port: 8080 #balancer port
+    targetPort: 8080 #container port
+  type: LoadBalancer

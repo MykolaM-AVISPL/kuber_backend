@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-{{.Release.Name}}
+  labels:
+    app: java-backend
+    env: prod
+    owner: MykolaMatsishin
+spec:
+  selector:
+    matchLabels:
+      project: {{ .Values.labels.project}}-{{.Release.Name}}
+      version: {{ .Values.labels.version}}
+  template:
+    metadata:
+      labels:
+        project: {{ .Values.labels.project}}-{{.Release.Name}}
+        version: {{ .Values.labels.version}}
+    spec:
+      containers:
+        - name: java-autoscaling
+          image: {{ .Values.container.image }}:{{ .Values.container.version }}
+          ports:
+            - containerPort: {{ .Values.container.containerPort }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: {{ .Values.container.containerPort }}
+            initialDelaySeconds: {{ .Values.container.checkDelaySeconds }}
+            periodSeconds: {{ .Values.container.checkIntervalSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: {{ .Values.container.containerPort}}
+            initialDelaySeconds: {{ .Values.container.checkDelaySeconds }}
+            periodSeconds: {{ .Values.container.checkIntervalSeconds }}
