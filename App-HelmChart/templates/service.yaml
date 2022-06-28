@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service-{{.Release.Name}}
+  labels:
+    app: java-backend
+    env: prod
+spec:
+  selector:
+    project: {{ .Values.labels.project}}-{{.Release.Name}}
+    version: {{ .Values.labels.version}}
+  ports:
+    - name: app-listener
+      protocol: TCP
+      port: 8080 #balancer port
+      targetPort: 8080 #container port
+  type: LoadBalancer

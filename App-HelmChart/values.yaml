@@ -1,0 +1,15 @@
+# Default Values for my Helm Chart
+
+container:
+  image: docker.io/matsishin/kuber-backend
+  version: 0.2.2
+  containerPort: 8080
+  checkDelaySeconds: 60
+  checkIntervalSeconds: 10
+
+scaling:
+  minReplicaCount: 2
+  maxReplicaCount: 3
+labels:
+  project: autoscaling
+  version: latest
